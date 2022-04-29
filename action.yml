@@ -42,38 +42,22 @@ runs:
   
   - name: Setup NuGet
     uses: NuGet/setup-nuget@v1.0.5
-
-  - name: Restore dependencies
-    run: nuget restore ${{ inputs.SolutionName }}
-    shell: bash
     
   - name: Setup .NET
     uses: actions/setup-dotnet@v2
     with:
       dotnet-version: 5.0.x
-      source-url: "https://nuget.pkg.github.com/${{ inputs.Owner }}/index.json"
-    env:
-      NUGET_AUTH_TOKEN: ${{ inputs.NugetTkn }}
-
-  - name: Add Github Source
-    run: dotnet nuget add source --username ${{ inputs.User }} --password ${{ inputs.Password }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ inputs.Owner }}/index.json"
-    shell: bash
-    
-  - name: Build
-    run: dotnet build ${{ inputs.SolutionName }} --configuration ${{ inputs.BuildSolutionType }} --no-restore
-    shell: bash
-    
-  - name: Pack
-    id: PackForNuget
-    run: dotnet pack --configuration ${{ inputs.BuildSolutionType }} 
-    shell: bash
-
+     
   - name: Find nupkg
     id: Find-nupkg
     uses: DovnarAlexander/github-action-file-detection@master
     with:
       wildcard: '*.nupkg'
 
+  - name: Add Github Source
+    run: dotnet nuget add source --username ${{ inputs.User }} --password ${{ inputs.Password }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ inputs.Owner }}/index.json"
+    shell: bash
+    
   - name: Put To Nuget - from path input
     if: inputs.PathToPackage != 'unknown'
     run: dotnet nuget push "${{ inputs.PathToPackage }}" --api-key ${{ inputs.NugetTkn }} --source "github"
