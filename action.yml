@@ -53,6 +53,7 @@ runs:
      
   - name: Find nupkg
     id: Find-nupkg
+    if: inputs.PathToPackage == 'unknown'
     uses: DovnarAlexander/github-action-file-detection@master
     with:
       wildcard: "*${{ inputs.RepoName }}.${{ inputs.Version }}.nupkg"
