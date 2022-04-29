@@ -4,6 +4,9 @@ inputs:
   RepoName: 
     description: 'Name of the Repo'
     required: true
+  Version:
+    description: 'Version number'
+    required: true
   SolutionName: 
     description: 'Name of the Solution'
     required: true
@@ -52,8 +55,7 @@ runs:
     id: Find-nupkg
     uses: DovnarAlexander/github-action-file-detection@master
     with:
-      wildcard: '*.nupkg'
-      base_path: /bin/Release
+      wildcard: "*${{ inputs.RepoName }}.${{ inputs.Version }}.nupkg"
 
   - name: Add Github Source
     run: dotnet nuget add source --username ${{ inputs.User }} --password ${{ inputs.Password }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ inputs.Owner }}/index.json"
