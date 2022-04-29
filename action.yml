@@ -53,7 +53,7 @@ runs:
     uses: DovnarAlexander/github-action-file-detection@master
     with:
       wildcard: '*.nupkg'
-      base_path: bin/Release
+      base_path: /bin/Release
 
   - name: Add Github Source
     run: dotnet nuget add source --username ${{ inputs.User }} --password ${{ inputs.Password }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ inputs.Owner }}/index.json"
