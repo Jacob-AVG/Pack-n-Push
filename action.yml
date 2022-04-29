@@ -56,7 +56,7 @@ runs:
     if: inputs.PathToPackage == 'unknown'
     uses: DovnarAlexander/github-action-file-detection@master
     with:
-      wildcard: "*${{ inputs.RepoName }}.${{ inputs.Version }}.nupkg"
+      wildcard: '*.nupkg'
 
   - name: Add Github Source
     run: dotnet nuget add source --username ${{ inputs.User }} --password ${{ inputs.Password }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ inputs.Owner }}/index.json"
