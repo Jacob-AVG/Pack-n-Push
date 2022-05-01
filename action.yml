@@ -58,9 +58,9 @@ runs:
     with:
       wildcard: '*.nupkg'
 
-  - name: Add Github Source
-    run: dotnet nuget add source --username ${{ inputs.User }} --password ${{ inputs.Password }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ inputs.Owner }}/index.json"
-    shell: bash
+#  - name: Add Github Source
+#    run: dotnet nuget add source --username ${{ inputs.User }} --password ${{ inputs.Password }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ inputs.Owner }}/index.json"
+#    shell: bash
     
   - name: Put To Nuget - from path input
     if: inputs.PathToPackage != 'unknown'
